@@ -38,9 +38,10 @@ USER seluser
 # Chrome webdriver
 #============================================
 # can specify versions by CHROME_DRIVER_VERSION
-# Latest released version will be used by default
+# 2.33 will be used by default to workaround
+# https://bugs.chromium.org/p/chromedriver/issues/detail?id=2198
 #============================================
-ARG CHROME_DRIVER_VERSION="latest"
+ARG CHROME_DRIVER_VERSION="2.33"
 RUN CD_VERSION=$(if [ ${CHROME_DRIVER_VERSION:-latest} = "latest" ]; then echo $(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE); else echo $CHROME_DRIVER_VERSION; fi) \
   && echo "Using chromedriver version: "$CD_VERSION \
   && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CD_VERSION/chromedriver_linux64.zip \
